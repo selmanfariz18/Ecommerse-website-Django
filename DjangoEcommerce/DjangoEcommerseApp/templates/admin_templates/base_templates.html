@@ -25,6 +25,13 @@
 
   {% block custom_css %}
   {% endblock custom_css %}
+
+  <style>
+    ul.errorlist{
+      margin: 0px;  
+    }
+  </style>
+
   <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -40,7 +47,7 @@
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
     {% include 'admin_templates/navbar.html' %}
-    {% include 'admin_templates/sidebar.html' %}
+    {% include 'admin_templates/sidebar.html' with id=form.instance.id %}
 
       <!-- Main Content -->
       <div class="main-content">
@@ -48,6 +55,20 @@
           <div class="section-header">
             <h1>{% block page_title %}{% endblock page_title %}</h1>
           </div>
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == "success" %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% if message.tags == "error" %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
           {% block page_content %}{% endblock page_content %}
         </section>
       </div>
@@ -90,5 +111,11 @@
   <script src="{% static '/js/custom.js' %}"></script>
   {% block custom_js %}
   {% endblock custom_js %}
+  <script>
+    document.getElementById("title").onkeyup=function(){
+      document.getElementById("url_slug").value=document.getElementById("title").value.toLowerCase().replace(" ","-");
+    }
+  </script>
+
 </body>
 </html>

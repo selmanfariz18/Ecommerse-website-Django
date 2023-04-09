@@ -1,0 +1,52 @@
+{% extends 'admin_templates/base_templates.html' %}
+
+{% block title %}
+Category Update
+{% endblock title %}
+
+{% block custom_css %}
+
+{% endblock custom_css %}
+
+{% block page_title %}
+Category Update
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h4>Categories</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" id="{{ field.name }}" name="{{ field.name }}" class="form-control" value={{field.value}} >
+                {% if field.errors %}
+                <div class="alert alert-danger" style="margin: 10px;">
+                  {{ fiel.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% if field.field.widget.input_type == "file" %}
+            <div class="form-group">
+            <label>Current {{ field.label }}</label><br>
+                <img src="/media/{{ field.value }}" style="height:250px"/>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary btn-block" type="submit">Save category</button>
+        </form>
+    </div>  
+</div>
+</div>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}
