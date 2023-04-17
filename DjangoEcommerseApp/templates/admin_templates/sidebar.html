@@ -32,7 +32,16 @@
             <li class={% if request.path == sub_category_create %} active {% endif %}><a class="nav-link" href="{% url 'sub_category_create' %}">Add SubCategories</a></li>
           </ul>
         </li>
-      </ul>
+
+               {% comment %}Merchant User Menu{% endcomment %}
+        {% url 'merchant_create' as merchant_create %}
+        <li class="dropdown {% if request.path == merchant_create %} active {% endif %} ">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>merchant user</span></a>
+          <ul class="dropdown-menu">
+            <li class={% if request.path == merchant_create %} active {% endif %}><a class="nav-link" href="{% url 'merchant_create' %}">Add Merchant user</a></li>
+          </ul>
+        </li>
+    
 
       <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
         <a href="{% url 'admin_logout_process' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">

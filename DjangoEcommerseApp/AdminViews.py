@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView,CreateView,UpdateView,DetailView
-from DjangoEcommerseApp.models import Categories,SubCategories
+from DjangoEcommerseApp.models import Categories,SubCategories,CustomUser,MerchantUser
 from django.contrib.messages.views import SuccessMessageMixin
 
 @login_required(login_url="admin/")
@@ -39,3 +39,8 @@ class SubCategoriesUpdate(SuccessMessageMixin,UpdateView):
     success_message="Category_Updated!"
     fields="__all__"
     template_name="admin_templates/sub_category_update.html"
+
+class MerchantUserCreateView(SuccessMessageMixin,CreateView):
+    template_name="admin_templates/merchant_create.html"
+    model=CustomUser
+    fields="__all__"
